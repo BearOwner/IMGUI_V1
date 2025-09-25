@@ -1,0 +1,285 @@
+# ===============================================
+# Android & Gradle Build Outputs
+# ===============================================
+build/
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+
+# ===============================================
+# Android NDK & Native Development
+# ===============================================
+app/build/
+app/.gradle/
+obj/
+libs/
+*.so
+*.a
+*.o
+*.d
+*.elf
+*.bin
+*.hex
+*.out
+*.map
+
+# ===============================================
+# IDE & Editor Files
+# ===============================================
+# IntelliJ IDEA/Android Studio
+.idea/
+*.iml
+*.ipr
+*.iws
+.idea_modules/
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Visual Studio Code
+.vscode/
+*.swp
+*.swo
+*~
+
+# Vim
+*.swp
+*.swo
+Session.vim
+.netrwhist
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+
+# ===============================================
+# Temporary & Cache Files
+# ===============================================
+*.tmp
+*.temp
+*.cache
+*.log
+*.bak
+*.backup
+*.old
+*.orig
+*.rej
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.ncb
+*.aps
+*.pch
+*.vspscc
+*.vssscc
+build.log
+*.pid
+*.seed
+*.pid.lock
+
+# ===============================================
+# OS Generated Files
+# ===============================================
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Icon?
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ===============================================
+# Project Specific Directories
+# ===============================================
+# Data folders (assets, resources, etc.)
+Data_Folder/
+ICON/
+nrg_hook/
+SDK/
+
+# ===============================================
+# Security & Configuration Files
+# ===============================================
+# Local configuration files
+config.local
+local.properties
+local.properties.backup
+
+# Security sensitive files
+*.key
+*.pem
+*.p12
+*.jks
+*.keystore
+secrets.json
+.env
+.env.local
+.env.*.local
+
+# ===============================================
+# Testing & Coverage
+# ===============================================
+# Test outputs
+test-results/
+coverage/
+*.lcov
+*.gcno
+*.gcda
+*.gcov
+
+# Android testing
+app/src/androidTest/
+app/src/test/
+
+# ===============================================
+# Documentation & Reports
+# ===============================================
+# Generated documentation
+docs/_build/
+docs/build/
+*.html
+!README.md
+
+# Lint and analysis reports
+lint-results-*
+lint-report.html
+lint-report.xml
+checkstyle.xml
+pmd.xml
+findbugs.xml
+
+# ===============================================
+# Version Control
+# ===============================================
+# Git
+.git/
+.gitignore
+
+# SVN
+.svn/
+
+# Mercurial
+.hg/
+
+# ===============================================
+# Application Specific
+# ===============================================
+# APK files
+*.apk
+*.apks
+*.aab
+
+# ProGuard
+proguard/
+proguard-rules.pro.backup
+proguard.cfg.backup
+
+# R8
+r8.cfg
+
+# Doxygen
+doxygen/
+
+# CMake (if used)
+cmake-build-*/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+CMakeLists.txt.user
+
+# ===============================================
+# Network & Remote Files
+# ===============================================
+# Network drives
+*.network
+
+# Remote sync
+.remotedebug
+
+# ===============================================
+# Miscellaneous
+# ===============================================
+# Application logs
+logs/
+*.log
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Media files (if not tracked)
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.mp3
+*.wav
+*.flac
+
+# Compressed files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Office documents
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+
+# ===============================================
+# Project Specific Exclusions
+# ===============================================
+# Keep these files (uncomment if needed)
+# !app/src/main/assets/
+# !app/src/main/res/
+# !README.md
+# !LICENSE

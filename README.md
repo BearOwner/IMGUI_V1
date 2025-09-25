@@ -218,6 +218,16 @@ Other Problems?
 └── Report detailed logs via GitHub Issues
 ```
 
+#### SDK Compatibility Issues
+```
+Linker Errors or Undefined Symbols?
+├── SDK methods may be declared but not implemented in some versions
+├── Remove problematic SDK calls and add explanatory comments
+├── Document limitations in code comments for future reference
+├── Consider alternative approaches or workarounds
+└── Test build after each SDK-related change
+```
+
 ## Contributing
 
 We welcome contributions! Follow these guidelines:
@@ -344,3 +354,9 @@ Attribution: Developed by BearOwner (bearowner@example.com) with security enhanc
 - **📚 Security Documentation**: Added comprehensive SECURITY.md with vulnerability details and mitigation strategies.
 - **📚 Enhanced README**: Updated with detailed security features, performance optimizations, and troubleshooting guides.
 - **📚 Code Comments**: Added extensive security-focused comments throughout the codebase.
+
+### SDK Compatibility Fixes
+- **🔧 Linker Error Resolution**: Fixed undefined symbol errors for SDK methods (`OnRep_ItemListNet`, `NotifyItemListUpdated`, `ForceNetUpdate`) in UBackpackComponent.
+- **🔧 Backpack Refresh Limitation**: Documented SDK implementation limitations for backpack item list refresh functionality.
+- **🔧 Build System Stability**: Resolved Android.mk case-sensitivity issues and improved build configuration reliability.
+- **🔧 Unreal Engine SDK Compatibility**: Enhanced compatibility with Unreal Engine SDK containers and replication methods.

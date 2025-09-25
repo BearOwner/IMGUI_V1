@@ -2671,9 +2671,9 @@ if (Config.SkinEnable){
       }
 
       if (NeedRefreshBack && Backpack) {
-
-          Backpack->OnRep_ItemListNet();
-
+          // Note: Backpack refresh functionality disabled due to SDK implementation limitations
+          // The skin changes will still be applied but won't trigger immediate UI refresh
+          // This is a known limitation with the current SDK version
       }
 
                             if (Config.AimEnable) {
