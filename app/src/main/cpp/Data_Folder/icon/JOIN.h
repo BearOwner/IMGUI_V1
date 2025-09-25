@@ -1,0 +1,979 @@
+
+#include "枪101005.h"
+#include "枪101001.h"
+#include "枪101002.h"
+#include "枪101003.h"
+#include "枪101004.h"
+#include "枪101006.h"
+#include "枪101007.h"
+#include "枪101008.h"
+#include "枪101009.h"
+#include "枪101010.h"
+#include "枪101011.h"
+#include "枪101012.h"
+
+#include "枪102001.h"
+#include "枪102002.h"
+#include "枪102003.h"
+#include "枪102004.h"
+#include "枪102005.h"
+#include "枪102007.h"
+
+#include "枪102105.h"
+
+#include "枪103005.h"
+#include "枪103001.h"
+#include "枪103002.h"
+#include "枪103003.h"
+#include "枪103004.h"
+#include "枪103006.h"
+#include "枪103007.h"
+#include "枪103008.h"
+#include "枪103009.h"
+#include "枪103010.h"
+#include "枪103011.h"
+#include "枪103012.h"
+#include "枪103013.h"
+#include "枪103014.h"
+#include "枪103015.h"
+
+#include "枪103100.h"
+#include "枪103901.h"
+#include "枪103903.h"//
+
+#include "枪104001.h"
+#include "枪104002.h"
+#include "枪104003.h"
+#include "枪104004.h"
+
+#include "枪104100.h"
+
+#include "枪105001.h"
+#include "枪105002.h"
+#include "枪105010.h"
+
+#include "枪106001.h"
+#include "枪106002.h"
+#include "枪106003.h"
+#include "枪106004.h"
+#include "枪106005.h"
+#include "枪106006.h"
+#include "枪106007.h"
+#include "枪106008.h"
+#include "枪106010.h"
+
+#include "枪107001.h"
+#include "枪107006.h"
+#include "拳头.h"
+#include "手雷弹.h"
+#include "燃烧瓶.h"
+#include "烟雾弹.h"
+#include "震爆弹.h"
+
+
+
+
+#include "WEAPON/AKM.h"
+#include "WEAPON/AUG.h"
+#include "WEAPON/AWM.h"
+#include "WEAPON/CROSSBOW.h"
+#include "WEAPON/DBS.h"
+#include "WEAPON/DP28.h"
+#include "WEAPON/Desert_Eagle.h"
+#include "WEAPON/FIST.h"
+#include "WEAPON/Frag_Grenade.h"
+#include "WEAPON/G36C.h"
+#include "WEAPON/GROZA.h"
+#include "WEAPON/KAR98K.h"
+#include "WEAPON/M16A4.h"
+#include "WEAPON/M24.h"
+#include "WEAPON/M249.h"
+#include "WEAPON/M416.h"
+#include "WEAPON/M762.h"
+#include "WEAPON/MG3.h"
+#include "WEAPON/MINI14.h"
+#include "WEAPON/MK12.h"
+#include "WEAPON/MK14.h"
+#include "WEAPON/MK47.h"
+#include "WEAPON/MP5K.h"
+#include "WEAPON/Machete.h"
+#include "WEAPON/P18C.h"
+#include "WEAPON/P1911.h"
+#include "WEAPON/P92.h"
+#include "WEAPON/PAN.h"
+#include "WEAPON/PP19.h"
+#include "WEAPON/QBZ.h"
+#include "WEAPON/R1895.h"
+#include "WEAPON/R45.h"
+#include "WEAPON/S12K.h"
+#include "WEAPON/S1897.h"
+#include "WEAPON/S686.h"
+#include "WEAPON/SCARL.h"
+#include "WEAPON/SCORPION.h"
+#include "WEAPON/SKS.h"
+#include "WEAPON/SLR.h"
+#include "WEAPON/Sawed_off.h"
+#include "WEAPON/Smoke_Grenade.h"
+#include "WEAPON/TOMMY.h"
+#include "WEAPON/UMP45.h"
+#include "WEAPON/UZI.h"
+#include "WEAPON/VECTOR.h"
+#include "WEAPON/VSS.h"
+#include "WEAPON/WIN94.h"
+
+
+#include "GG/ACE32.h"
+#include "GG/DesertEagle.h"
+#include "GG/FAMAS.h"
+#include "GG/Mk12.h"
+#include "GG/Vz61.h"
+
+
+#include "GG/sliderIMG.h"
+#include "GG/subtab1IMG.h"
+
+#include <GLES3/gl3.h>
+#include "Data_Folder/imgui/stb_image.h"
+
+struct TextureInfo { ImTextureID textureId; int x; int y; int w; int h; };
+static TextureInfo textureInfo;
+TextureInfo createTexture(char *ImagePath) {
+int w, h, n;
+stbi_uc *data = stbi_load(ImagePath, &w, &h, &n, 0);
+GLuint texture;
+glGenTextures(1, &texture);
+glEnable(GL_TEXTURE_2D);
+glBindTexture(GL_TEXTURE_2D, texture);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+if (n == 3) {
+glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+} else {
+glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+}stbi_image_free(data);
+textureInfo.textureId = reinterpret_cast<ImTextureID>((GLuint *) texture);
+textureInfo.w = w;
+textureInfo.h = h;
+return textureInfo;
+}TextureInfo CreateTexture(const unsigned char* buf, int len) {
+TextureInfo image;
+unsigned char* image_data = stbi_load_from_memory(buf, len, &image.w, &image.h, NULL, 0);
+if (image_data == NULL) perror("文件不存在"); GLuint image_texture;
+glGenTextures(1, &image_texture);
+glBindTexture(GL_TEXTURE_2D, image_texture);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE); //对于非二次方纹理，这在 WebGL 上是必需的
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE); //相同的
+#if defined(GL_UNPACK_ROW_LENGTH) && !defined(EMSCRIPTEN)
+glPixelStorei(GL_UNPACK_ROW_LENGTH, 0);
+#endif
+glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.w, image.h, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
+stbi_image_free(image_data);
+image.textureId = (ImTextureID)image_texture;
+return image;
+}
+bool LoadTextureFromMemory(const stbi_uc* data, size_t size, ImTextureID* out_texture, int* out_width, int* out_height)
+{
+    int image_width, image_height, channels;
+    stbi_uc* image_data = stbi_load_from_memory(data, size, &image_width, &image_height, &channels, STBI_rgb_alpha);
+    if (image_data == nullptr)
+        return false;
+
+    GLuint image_texture;
+    glGenTextures(1, &image_texture);
+    glBindTexture(GL_TEXTURE_2D, image_texture);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image_width, image_height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image_data);
+    stbi_image_free(image_data);
+    *out_texture = (ImTextureID)(intptr_t)image_texture;
+    *out_width = image_width;
+    *out_height = image_height;
+    return true;
+}
+
+
+static struct Hand {
+TextureInfo AKM;
+TextureInfo AUG;
+TextureInfo AWM;
+TextureInfo CROSSBOW;
+TextureInfo DBS;
+TextureInfo DP28;
+TextureInfo Desert_Eagle;
+TextureInfo FIST;
+TextureInfo Frag_Grenade;
+TextureInfo G36C;
+TextureInfo GROZA;
+TextureInfo KAR98K;
+TextureInfo M16A4;
+TextureInfo M24;
+TextureInfo M249;
+TextureInfo M416;
+TextureInfo M762;
+TextureInfo MG3;
+TextureInfo MINI14;
+TextureInfo MK12;
+TextureInfo MK14;
+TextureInfo MK47;
+TextureInfo MP5K;
+TextureInfo Machete;
+TextureInfo P18C;
+TextureInfo P1911;
+TextureInfo P92;
+TextureInfo PAN;
+TextureInfo PP19;
+TextureInfo QBZ;
+TextureInfo R1895;
+TextureInfo R45;
+TextureInfo S12K;
+TextureInfo S1897;
+TextureInfo S686;
+TextureInfo SCARL;
+TextureInfo SCORPION;
+TextureInfo SKS;
+TextureInfo SLR;
+TextureInfo Sawed_off;
+TextureInfo Smoke_Grenade;
+TextureInfo TOMMY;
+TextureInfo UMP45;
+TextureInfo UZI;
+TextureInfo VECTOR;
+TextureInfo VSS;
+TextureInfo WIN94;
+} hand;
+
+
+        int pid;
+        float matrix[16] = {0};
+        double Widtih, Higtih;
+        
+        // 枪械
+        TextureInfo ID101005;
+TextureInfo ID1010051;
+TextureInfo ID1010052;
+TextureInfo ID1010053;
+TextureInfo ID1010054;
+TextureInfo ID1010055;
+TextureInfo ID1010056;
+TextureInfo ID1010057;
+    TextureInfo ID101001;
+    TextureInfo ID1010011;
+    TextureInfo ID1010012;
+    TextureInfo ID1010013;
+    TextureInfo ID1010014;
+    TextureInfo ID1010015;
+    TextureInfo ID1010016;
+    TextureInfo ID1010017;
+    
+    TextureInfo ID101002;
+    TextureInfo ID1010021;
+    TextureInfo ID1010022;
+    TextureInfo ID1010023;
+    TextureInfo ID1010024;
+    TextureInfo ID1010025;
+    TextureInfo ID1010026;
+    TextureInfo ID1010027;
+    TextureInfo ID101003;
+    TextureInfo ID1010031;
+    TextureInfo ID1010032;
+    TextureInfo ID1010033;
+    TextureInfo ID1010034;
+    TextureInfo ID1010035;
+    TextureInfo ID1010036;
+    TextureInfo ID1010037;
+    TextureInfo ID101004;
+    TextureInfo ID1010041;
+    TextureInfo ID1010042;
+    TextureInfo ID1010043;
+    TextureInfo ID1010044;
+    TextureInfo ID1010045;
+    TextureInfo ID1010046;
+    TextureInfo ID1010047;
+    
+    TextureInfo ID101006;
+    TextureInfo ID1010061;
+    TextureInfo ID1010062;
+    TextureInfo ID1010063;
+    TextureInfo ID1010064;
+    TextureInfo ID1010065;
+    TextureInfo ID1010066;
+    TextureInfo ID1010067;
+    
+    TextureInfo ID101007;
+    TextureInfo ID1010071;
+    TextureInfo ID1010072;
+    TextureInfo ID1010073;
+    TextureInfo ID1010074;
+    TextureInfo ID1010075;
+    TextureInfo ID1010076;
+    TextureInfo ID1010077;
+    
+    TextureInfo ID101008;
+    TextureInfo ID1010081;
+    TextureInfo ID1010082;
+    TextureInfo ID1010083;
+    TextureInfo ID1010084;
+    TextureInfo ID1010085;
+    TextureInfo ID1010086;
+    TextureInfo ID1010087;
+    TextureInfo ID101009;
+    TextureInfo ID1010091;
+    TextureInfo ID1010092;
+    TextureInfo ID1010093;
+    TextureInfo ID1010094;
+    TextureInfo ID1010095;
+    TextureInfo ID1010096;
+    TextureInfo ID1010097;
+    
+    TextureInfo ID101010;
+    TextureInfo ID1010101;
+    TextureInfo ID1010102;
+    TextureInfo ID1010103;
+    TextureInfo ID1010104;
+    TextureInfo ID1010105;
+    TextureInfo ID1010106;
+    TextureInfo ID1010107;
+    
+    TextureInfo ID101011;
+    TextureInfo ID101012;
+    TextureInfo ID1010121;
+    TextureInfo ID1010122;
+    TextureInfo ID1010123;
+    TextureInfo ID1010124;
+    TextureInfo ID1010125;
+    TextureInfo ID1010126;
+    TextureInfo ID1010127;
+    
+    TextureInfo ID102001;
+    TextureInfo ID1020011;
+    TextureInfo ID1020012;
+    TextureInfo ID1020013;
+    TextureInfo ID1020014;
+    TextureInfo ID1020015;
+    
+    TextureInfo ID102002;
+    TextureInfo ID1020021;
+    TextureInfo ID1020022;
+    TextureInfo ID1020023;
+    TextureInfo ID1020024;
+    TextureInfo ID1020025;
+    
+    TextureInfo ID102003;
+    TextureInfo ID1020031;
+    TextureInfo ID1020032;
+    TextureInfo ID1020033;
+    TextureInfo ID1020034;
+    TextureInfo ID1020035;
+    TextureInfo ID1020036;
+    TextureInfo ID1020037;
+    
+    TextureInfo ID102004;
+    TextureInfo ID1020041;
+    TextureInfo ID1020042;
+    TextureInfo ID1020043;
+    TextureInfo ID1020044;
+    TextureInfo ID1020045;
+    TextureInfo ID1020046;
+    TextureInfo ID1020047;
+    
+    TextureInfo ID102005;
+    TextureInfo ID1020051;
+    TextureInfo ID1020052;
+    TextureInfo ID1020053;
+    TextureInfo ID1020054;
+    TextureInfo ID1020055;
+    TextureInfo ID1020056;
+    TextureInfo ID1020057;
+    
+    TextureInfo ID102007;
+    TextureInfo ID102105;
+    
+TextureInfo ID103005;
+ TextureInfo ID1030051;
+ TextureInfo ID1030052;
+ TextureInfo ID1030053;
+ TextureInfo ID1030054;
+ TextureInfo ID1030055;
+ TextureInfo ID1030056;
+ TextureInfo ID1030057;
+ 
+TextureInfo ID103001;
+TextureInfo ID1030011;
+TextureInfo ID1030012;
+TextureInfo ID1030013;
+TextureInfo ID1030014;
+TextureInfo ID1030015;
+TextureInfo ID1030016;
+TextureInfo ID1030017;
+
+TextureInfo ID103002;
+TextureInfo ID1030021;
+TextureInfo ID1030022;
+TextureInfo ID1030023;
+TextureInfo ID1030024;
+TextureInfo ID1030025;
+TextureInfo ID1030026;
+TextureInfo ID1030027;
+
+TextureInfo ID103003;
+TextureInfo ID1030031;
+TextureInfo ID1030032;
+TextureInfo ID1030033;
+TextureInfo ID1030034;
+TextureInfo ID1030035;
+TextureInfo ID1030036;
+TextureInfo ID1030037;
+
+TextureInfo ID103004;
+ TextureInfo ID1030041;
+ TextureInfo ID1030042;
+ TextureInfo ID1030043;
+ TextureInfo ID1030044;
+ TextureInfo ID1030045;
+ TextureInfo ID1030046;
+ TextureInfo ID1030047;
+ 
+TextureInfo ID103006;
+ TextureInfo ID1030061;
+ TextureInfo ID1030062;
+ TextureInfo ID1030063;
+ TextureInfo ID1030064;
+ TextureInfo ID1030065;
+ TextureInfo ID1030066;
+ TextureInfo ID1030067;
+ 
+TextureInfo ID103007;
+ TextureInfo ID1030071;
+ TextureInfo ID1030072;
+ TextureInfo ID1030073;
+ TextureInfo ID1030074;
+ TextureInfo ID1030075;
+ TextureInfo ID1030076;
+ TextureInfo ID1030077;
+ 
+TextureInfo ID103008;
+TextureInfo ID103009;
+TextureInfo ID1030091;
+TextureInfo ID1030092;
+TextureInfo ID1030093;
+TextureInfo ID1030094;
+TextureInfo ID1030095;
+TextureInfo ID1030096;
+TextureInfo ID1030097;
+
+TextureInfo ID103010;
+ TextureInfo ID1030101;
+ TextureInfo ID1030102;
+ TextureInfo ID1030103;
+ TextureInfo ID1030104;
+ TextureInfo ID1030105;
+ TextureInfo ID1030106;
+ TextureInfo ID1030107;
+ 
+TextureInfo ID103011;
+TextureInfo ID1030111;
+TextureInfo ID1030112;
+TextureInfo ID1030113;
+TextureInfo ID1030114;
+TextureInfo ID1030115;
+TextureInfo ID1030116;
+TextureInfo ID1030117;
+
+TextureInfo ID103012;
+ TextureInfo ID1030121;
+ TextureInfo ID1030122;
+ TextureInfo ID1030123;
+ TextureInfo ID1030124;
+ TextureInfo ID1030125;
+ TextureInfo ID1030126;
+ TextureInfo ID1030127;
+ 
+ 
+TextureInfo ID103013;
+TextureInfo ID103014;
+ TextureInfo ID1030141;
+ TextureInfo ID1030142;
+ TextureInfo ID1030143;
+ TextureInfo ID1030144;
+ TextureInfo ID1030145;
+ TextureInfo ID1030146;
+ TextureInfo ID1030147;
+ 
+TextureInfo ID103015;
+
+TextureInfo ID103100;
+TextureInfo ID103901;
+
+TextureInfo ID103903;
+
+TextureInfo ID104001;
+TextureInfo ID104002;
+TextureInfo ID104003;
+TextureInfo ID1040031;
+TextureInfo ID1040032;
+TextureInfo ID1040033;
+TextureInfo ID1040034;
+TextureInfo ID1040035;
+
+TextureInfo ID104004;
+TextureInfo ID1040041;
+TextureInfo ID1040042;
+TextureInfo ID1040043;
+TextureInfo ID1040044;
+TextureInfo ID1040045;
+
+TextureInfo ID104100;
+
+TextureInfo ID105001;
+TextureInfo ID1050011;
+TextureInfo ID1050012;
+TextureInfo ID1050013;
+TextureInfo ID1050014;
+TextureInfo ID1050015;
+TextureInfo ID1050016;
+TextureInfo ID1050017;
+
+TextureInfo ID105002;
+TextureInfo ID105010;
+TextureInfo ID1050101;
+TextureInfo ID1050102;
+TextureInfo ID1050103;
+TextureInfo ID1050104;
+TextureInfo ID1050105;
+TextureInfo ID1050106;
+TextureInfo ID1050107;
+
+TextureInfo ID106001;
+TextureInfo ID106002;
+TextureInfo ID106003;
+TextureInfo ID106004;
+TextureInfo ID106005;
+TextureInfo ID106006;
+TextureInfo ID106007;
+TextureInfo ID106008;
+TextureInfo ID106010;
+
+TextureInfo ID107001;
+TextureInfo ID107006;
+
+
+TextureInfo ID拳头;
+TextureInfo ID手雷弹;
+TextureInfo ID燃烧瓶;
+TextureInfo ID烟雾弹;
+TextureInfo ID震撼弹;
+TextureInfo ID镰刀;
+TextureInfo ID撬棍;
+TextureInfo ID大砍刀;
+TextureInfo ID平底锅;
+        
+        
+        
+        
+
+TextureInfo NACE32;
+TextureInfo NDesertEagle;
+TextureInfo NFAMAS;
+TextureInfo NMk12;
+TextureInfo NVz61;
+        
+
+        void LoadWeaponsphoto() {
+        
+//subtab1IMG = CreateTexture(subtab1HEX, sizeof(subtab1HEX));
+//sliderIMG = CreateTexture(sliderHEX, sizeof(sliderHEX));
+        
+     
+
+NACE32 = CreateTexture(ACE32, sizeof(ACE32));
+NDesertEagle = CreateTexture(DesertEagle, sizeof(DesertEagle));
+NFAMAS = CreateTexture(FAMAS, sizeof(FAMAS));
+NMk12 = CreateTexture(Mk12, sizeof(Mk12));
+NVz61 = CreateTexture(Vz61, sizeof(Vz61));
+        
+        
+hand.AKM = CreateTexture(AKM_data, sizeof(AKM_data));
+hand.AUG = CreateTexture(AUG_data, sizeof(AUG_data));
+hand.AWM = CreateTexture(AWM_data, sizeof(AWM_data));
+hand.CROSSBOW = CreateTexture(CROSSBOW_data, sizeof(CROSSBOW_data));
+hand.DBS = CreateTexture(DBS_data, sizeof(DBS_data));
+hand.DP28 = CreateTexture(DP28_data, sizeof(DP28_data));
+hand.Desert_Eagle = CreateTexture(Desert_Eagle_data, sizeof(Desert_Eagle_data));
+hand.FIST = CreateTexture(FIST_data, sizeof(FIST_data));
+hand.Frag_Grenade = CreateTexture(Frag_Grenade_data, sizeof(Frag_Grenade_data));
+hand.G36C = CreateTexture(G36C_data, sizeof(G36C_data));
+hand.GROZA = CreateTexture(GROZA_data, sizeof(GROZA_data));
+hand.KAR98K = CreateTexture(KAR98K_data, sizeof(KAR98K_data));
+hand.M16A4 = CreateTexture(M16A4_data, sizeof(M16A4_data));
+hand.M24 = CreateTexture(M24_data, sizeof(M24_data));
+hand.M249 = CreateTexture(M249_data, sizeof(M249_data));
+hand.M416 = CreateTexture(M416_data, sizeof(M416_data));
+hand.M762 = CreateTexture(M762_data, sizeof(M762_data));
+hand.MG3 = CreateTexture(MG3_data, sizeof(MG3_data));
+hand.MINI14 = CreateTexture(MINI14_data, sizeof(MINI14_data));
+hand.MK12 = CreateTexture(MK12_data, sizeof(MK12_data));
+hand.MK14 = CreateTexture(MK14_data, sizeof(MK14_data));
+hand.MK47 = CreateTexture(MK47_data, sizeof(MK47_data));
+hand.MP5K = CreateTexture(MP5K_data, sizeof(MP5K_data));
+hand.Machete = CreateTexture(Machete_data, sizeof(Machete_data));
+hand.P18C = CreateTexture(P18C_data, sizeof(P18C_data));
+hand.P1911 = CreateTexture(P1911_data, sizeof(P1911_data));
+hand.P92 = CreateTexture(P92_data, sizeof(P92_data));
+hand.PAN = CreateTexture(PAN_data, sizeof(PAN_data));
+hand.PP19 = CreateTexture(PP19_data, sizeof(PP19_data));
+hand.QBZ = CreateTexture(QBZ_data, sizeof(QBZ_data));
+hand.R1895 = CreateTexture(R1895_data, sizeof(R1895_data));
+hand.R45 = CreateTexture(R45_data, sizeof(R45_data));
+hand.S12K = CreateTexture(S12K_data, sizeof(S12K_data));
+hand.S1897 = CreateTexture(S1897_data, sizeof(S1897_data));
+hand.S686 = CreateTexture(S686_data, sizeof(S686_data));
+hand.SCARL = CreateTexture(SCARL_data, sizeof(SCARL_data));
+hand.SCORPION = CreateTexture(SCORPION_data, sizeof(SCORPION_data));
+hand.SKS = CreateTexture(SKS_data, sizeof(SKS_data));
+hand.SLR = CreateTexture(SLR_data, sizeof(SLR_data));
+hand.Sawed_off = CreateTexture(Sawed_off_data, sizeof(Sawed_off_data));
+hand.Smoke_Grenade = CreateTexture(Smoke_Grenade_data, sizeof(Smoke_Grenade_data));
+hand.TOMMY = CreateTexture(TOMMY_data, sizeof(TOMMY_data));
+hand.UMP45 = CreateTexture(UMP45_data, sizeof(UMP45_data));
+hand.UZI = CreateTexture(UZI_data, sizeof(UZI_data));
+hand.VECTOR = CreateTexture(VECTOR_data, sizeof(VECTOR_data));
+hand.VSS = CreateTexture(VSS_data, sizeof(VSS_data));
+hand.WIN94 = CreateTexture(WIN94_data, sizeof(WIN94_data));
+
+        
+        
+     ID101005 = CreateTexture(枪101005, sizeof(枪101005));//创建悬浮窗图片纹理
+     ID1010051 = CreateTexture(枪101005, sizeof(枪101005));//创建悬浮窗图片纹理
+   ID1010052 = CreateTexture(枪101005, sizeof(枪101005));//创建悬浮窗图片纹理
+   ID1010053 = CreateTexture(枪101005, sizeof(枪101005));//创建悬浮窗图片纹理
+   ID1010054 = CreateTexture(枪101005, sizeof(枪101005));//创建悬浮窗图片纹理
+   ID1010055 = CreateTexture(枪101005, sizeof(枪101005));//创建悬浮窗图片纹理
+   ID1010056 = CreateTexture(枪101005, sizeof(枪101005));//创建悬浮窗图片纹理
+   ID1010057 = CreateTexture(枪101005, sizeof(枪101005));//创建悬浮窗图片纹理
+   
+ ID101001 = CreateTexture(枪101001, sizeof(枪101001));//创建悬浮窗图片纹理
+ ID1010011 = CreateTexture(枪101001, sizeof(枪101001));//创建悬浮窗图片纹理
+ ID1010012 = CreateTexture(枪101001, sizeof(枪101001));//创建悬浮窗图片纹理
+ ID1010013 = CreateTexture(枪101001, sizeof(枪101001));//创建悬浮窗图片纹理
+ ID1010014 = CreateTexture(枪101001, sizeof(枪101001));//创建悬浮窗图片纹理
+ ID1010015 = CreateTexture(枪101001, sizeof(枪101001));//创建悬浮窗图片纹理
+ ID1010016 = CreateTexture(枪101001, sizeof(枪101001));//创建悬浮窗图片纹理
+ ID1010017 = CreateTexture(枪101001, sizeof(枪101001));//创建悬浮窗图片纹理
+ 
+ ID101002 = CreateTexture(枪101002, sizeof(枪101002));//创建悬浮窗图片纹理
+ ID1010021 = CreateTexture(枪101002, sizeof(枪101002));//创建悬浮窗图片纹理
+ ID1010022 = CreateTexture(枪101002, sizeof(枪101002));//创建悬浮窗图片纹理
+ ID1010023 = CreateTexture(枪101002, sizeof(枪101002));//创建悬浮窗图片纹理
+ ID1010024 = CreateTexture(枪101002, sizeof(枪101002));//创建悬浮窗图片纹理
+ ID1010025 = CreateTexture(枪101002, sizeof(枪101002));//创建悬浮窗图片纹理
+ ID1010026 = CreateTexture(枪101002, sizeof(枪101002));//创建悬浮窗图片纹理
+ ID1010027 = CreateTexture(枪101002, sizeof(枪101002));//创建悬浮窗图片纹理
+ 
+ 
+ 
+ ID101003 = CreateTexture(枪101003, sizeof(枪101003));//创建悬浮窗图片纹理  //死尬
+ 
+ ID1010031 = CreateTexture(枪101003, sizeof(枪101003));//创建悬浮窗图片纹理  //
+ ID1010032 = CreateTexture(枪101003, sizeof(枪101003));//创建悬浮窗图片纹理  //死尬
+ ID1010033 = CreateTexture(枪101003, sizeof(枪101003));//创建悬浮窗图片纹理  //死尬
+ ID1010034 = CreateTexture(枪101003, sizeof(枪101003));//创建悬浮窗图片纹理  //死尬
+ ID1010036 = CreateTexture(枪101003, sizeof(枪101003));//创建悬浮窗图片纹理  //死尬
+ ID1010035 = CreateTexture(枪101003, sizeof(枪101003));//创建悬浮窗图片纹理  //死尬
+ ID1010037 = CreateTexture(枪101003, sizeof(枪101003));//创建悬浮窗图片纹理  //死尬
+ ID101004 = CreateTexture(枪101004, sizeof(枪101004));//创建悬浮窗图片纹理
+ ID1010041 = CreateTexture(枪101004, sizeof(枪101004));//创建悬浮窗图片纹理
+ ID1010042 = CreateTexture(枪101004, sizeof(枪101004));//创建悬浮窗图片纹理
+ ID1010043 = CreateTexture(枪101004, sizeof(枪101004));//创建悬浮窗图片纹理
+ ID1010044 = CreateTexture(枪101004, sizeof(枪101004));//创建悬浮窗图片纹理
+ ID1010042 = CreateTexture(枪101004, sizeof(枪101004));//创建悬浮窗图片纹理
+ ID1010046 = CreateTexture(枪101004, sizeof(枪101004));//创建悬浮窗图片纹理
+ ID1010047 = CreateTexture(枪101004, sizeof(枪101004));//创建悬浮窗图片纹理
+ 
+ ID101006 = CreateTexture(枪101006, sizeof(枪101006));//创建悬浮窗图片纹理
+ ID1010061 = CreateTexture(枪101006, sizeof(枪101006));//创建悬浮窗图片纹理
+ ID1010062 = CreateTexture(枪101006, sizeof(枪101006));//创建悬浮窗图片纹理
+ ID1010063 = CreateTexture(枪101006, sizeof(枪101006));//创建悬浮窗图片纹理
+ ID1010064 = CreateTexture(枪101006, sizeof(枪101006));//创建悬浮窗图片纹理
+ ID1010065 = CreateTexture(枪101006, sizeof(枪101006));//创建悬浮窗图片纹理
+ ID1010066 = CreateTexture(枪101006, sizeof(枪101006));//创建悬浮窗图片纹理
+ ID1010067 = CreateTexture(枪101006, sizeof(枪101006));//创建悬浮窗图片纹理
+ 
+ ID101007 = CreateTexture(枪101007, sizeof(枪101007));//创建悬浮窗图片纹理
+ ID1010071 = CreateTexture(枪101007, sizeof(枪101007));//创建悬浮窗图片纹理
+ ID1010072 = CreateTexture(枪101007, sizeof(枪101007));//创建悬浮窗图片纹理
+ ID1010073 = CreateTexture(枪101007, sizeof(枪101007));//创建悬浮窗图片纹理
+ ID1010074 = CreateTexture(枪101007, sizeof(枪101007));//创建悬浮窗图片纹理
+ ID1010075 = CreateTexture(枪101007, sizeof(枪101007));//创建悬浮窗图片纹理
+ ID1010076 = CreateTexture(枪101007, sizeof(枪101007));//创建悬浮窗图片纹理
+ ID1010077 = CreateTexture(枪101007, sizeof(枪101007));//创建悬浮窗图片纹理
+ 
+ ID101008 = CreateTexture(枪101008, sizeof(枪101008));//创建悬浮窗图片纹理
+
+ID1010081 = CreateTexture(枪101008, sizeof(枪101008));//创建悬浮窗图片纹理
+ ID1010082 = CreateTexture(枪101008, sizeof(枪101008));//创建悬浮窗图片纹理
+ ID1010083 = CreateTexture(枪101008, sizeof(枪101008));//创建悬浮窗图片纹理
+ ID1010084 = CreateTexture(枪101008, sizeof(枪101008));//创建悬浮窗图片纹理
+ ID1010082 = CreateTexture(枪101008, sizeof(枪101008));//创建悬浮窗图片纹理
+ ID1010086 = CreateTexture(枪101008, sizeof(枪101008));//创建悬浮窗图片纹理
+ ID1010087 = CreateTexture(枪101008, sizeof(枪101008));//创建悬浮窗图片纹理
+ 
+ ID101009 = CreateTexture(枪101009, sizeof(枪101009));//创建悬浮窗图片纹理
+ ID1010091 = CreateTexture(枪101009, sizeof(枪101009));//创建悬浮窗图片纹理
+ ID1010092 = CreateTexture(枪101009, sizeof(枪101009));//创建悬浮窗图片纹理
+ ID1010093 = CreateTexture(枪101009, sizeof(枪101009));//创建悬浮窗图片纹理
+ ID1010094 = CreateTexture(枪101009, sizeof(枪101009));//创建悬浮窗图片纹理
+ ID1010095 = CreateTexture(枪101009, sizeof(枪101009));//创建悬浮窗图片纹理
+ ID1010096 = CreateTexture(枪101009, sizeof(枪101009));//创建悬浮窗图片纹理
+ ID1010097 = CreateTexture(枪101009, sizeof(枪101009));//创建悬浮窗图片纹理
+ 
+ ID101010 = CreateTexture(枪101010, sizeof(枪101010));//创建悬浮窗图片纹理
+ ID1010101 = CreateTexture(枪101010, sizeof(枪101010));//创建悬浮窗图片纹理
+ ID1010102 = CreateTexture(枪101010, sizeof(枪101010));//创建悬浮窗图片纹理
+ ID1010103 = CreateTexture(枪101010, sizeof(枪101010));//创建悬浮窗图片纹理
+ ID1010104 = CreateTexture(枪101010, sizeof(枪101010));//创建悬浮窗图片纹理
+ ID1010105 = CreateTexture(枪101010, sizeof(枪101010));//创建悬浮窗图片纹理
+ ID1010106 = CreateTexture(枪101010, sizeof(枪101010));//创建悬浮窗图片纹理
+ ID1010107 = CreateTexture(枪101010, sizeof(枪101010));//创建悬浮窗图片纹理
+ 
+ ID101011 = CreateTexture(枪101011, sizeof(枪101011));//创建悬浮窗图片纹理
+ ID101012 = CreateTexture(枪101012, sizeof(枪101012));//创建悬浮窗图片纹理
+ ID1010121 = CreateTexture(枪101012, sizeof(枪101012));//创建悬浮窗图片纹理
+ ID1010122 = CreateTexture(枪101012, sizeof(枪101012));//创建悬浮窗图片纹理
+ ID1010123 = CreateTexture(枪101012, sizeof(枪101012));//创建悬浮窗图片纹理
+ ID1010124 = CreateTexture(枪101012, sizeof(枪101012));//创建悬浮窗图片纹理
+ ID1010125 = CreateTexture(枪101012, sizeof(枪101012));//创建悬浮窗图片纹理
+ ID1010126 = CreateTexture(枪101012, sizeof(枪101012));//创建悬浮窗图片纹理
+ ID1010127 = CreateTexture(枪101012, sizeof(枪101012));//创建悬浮窗图片纹理
+ 
+ ID102001 = CreateTexture(枪102001, sizeof(枪102001));//创建悬浮窗图片纹理
+ ID1020011 = CreateTexture(枪102001, sizeof(枪102001));//创建悬浮窗图片纹理
+ ID1020012 = CreateTexture(枪102001, sizeof(枪102001));//创建悬浮窗图片纹理
+ ID1020013 = CreateTexture(枪102001, sizeof(枪102001));//创建悬浮窗图片纹理
+ ID1020014 = CreateTexture(枪102001, sizeof(枪102001));//创建悬浮窗图片纹理
+ ID1020015 = CreateTexture(枪102001, sizeof(枪102001));//创建悬浮窗图片纹理
+ 
+ ID102002 = CreateTexture(枪102002, sizeof(枪102002));//创建悬浮窗图片纹理
+ ID1020021 = CreateTexture(枪102002, sizeof(枪102002));//创建悬浮窗图片纹理
+ ID1020022 = CreateTexture(枪102002, sizeof(枪102002));//创建悬浮窗图片纹理
+ ID1020023 = CreateTexture(枪102002, sizeof(枪102002));//创建悬浮窗图片纹理
+ ID1020024 = CreateTexture(枪102002, sizeof(枪102002));//创建悬浮窗图片纹理
+ ID1020025 = CreateTexture(枪102002, sizeof(枪102002));//创建悬浮窗图片纹理
+ 
+ ID102003 = CreateTexture(枪102003, sizeof(枪102003));//创建悬浮窗图片纹理
+ ID1020031 = CreateTexture(枪102003, sizeof(枪102003));//创建悬浮窗图片纹理
+ ID1020032 = CreateTexture(枪102003, sizeof(枪102003));//创建悬浮窗图片纹理
+ ID1020033 = CreateTexture(枪102003, sizeof(枪102003));//创建悬浮窗图片纹理
+ ID1020034 = CreateTexture(枪102003, sizeof(枪102003));//创建悬浮窗图片纹理
+ ID1020035 = CreateTexture(枪102003, sizeof(枪102003));//创建悬浮窗图片纹理
+ ID1020036 = CreateTexture(枪102003, sizeof(枪102003));//创建悬浮窗图片纹理
+ ID1020037 = CreateTexture(枪102003, sizeof(枪102003));//创建悬浮窗图片纹理
+ 
+ ID102004 = CreateTexture(枪102004, sizeof(枪102004));//创建悬浮窗图片纹理
+ ID1020041 = CreateTexture(枪102004, sizeof(枪102004));//创建悬浮窗图片纹理
+ ID1020042 = CreateTexture(枪102004, sizeof(枪102004));//创建悬浮窗图片纹理
+ ID1020043 = CreateTexture(枪102004, sizeof(枪102004));//创建悬浮窗图片纹理
+ ID1020044 = CreateTexture(枪102004, sizeof(枪102004));//创建悬浮窗图片纹理
+ ID1020045 = CreateTexture(枪102004, sizeof(枪102004));//创建悬浮窗图片纹理
+ ID1020046 = CreateTexture(枪102004, sizeof(枪102004));//创建悬浮窗图片纹理
+
+ID1020047 = CreateTexture(枪102004, sizeof(枪102004));//创建悬浮窗图片纹理
+ 
+ ID102005 = CreateTexture(枪102005, sizeof(枪102005));//创建悬浮窗图片纹理
+ ID1020051 = CreateTexture(枪102005, sizeof(枪102005));//创建悬浮窗图片纹理
+ ID1020052 = CreateTexture(枪102005, sizeof(枪102005));//创建悬浮窗图片纹理
+ ID1020053 = CreateTexture(枪102005, sizeof(枪102005));//创建悬浮窗图片纹理
+ ID1020054 = CreateTexture(枪102005, sizeof(枪102005));//创建悬浮窗图片纹理
+ ID1020055 = CreateTexture(枪102005, sizeof(枪102005));//创建悬浮窗图片纹理
+ ID1020056 = CreateTexture(枪102005, sizeof(枪102005));//创建悬浮窗图片纹理
+ ID1020057 = CreateTexture(枪102005, sizeof(枪102005));//创建悬浮窗图片纹理
+ 
+ ID102007 = CreateTexture(枪102007, sizeof(枪102007));//创建悬浮窗图片纹理
+ 
+ ID102105 = CreateTexture(枪102105, sizeof(枪102105));//创建悬浮窗图片纹理
+ 
+ ID103005 = CreateTexture(枪103005, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030051 = CreateTexture(枪103005, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030052 = CreateTexture(枪103005, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030053 = CreateTexture(枪103005, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030054 = CreateTexture(枪103005, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030055 = CreateTexture(枪103005, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030056 = CreateTexture(枪103005, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030057 = CreateTexture(枪103005, sizeof(枪103005));//创建悬浮窗图片纹理
+ 
+ ID103001 = CreateTexture(枪103001, sizeof(枪103001));//创建悬浮窗图片纹理
+ ID1030011 = CreateTexture(枪103001, sizeof(枪103001));//创建悬浮窗图片纹理
+ ID1030012 = CreateTexture(枪103001, sizeof(枪103001));//创建悬浮窗图片纹理
+ ID1030013 = CreateTexture(枪103001, sizeof(枪103001));//创建悬浮窗图片纹理
+ ID1030014 = CreateTexture(枪103001, sizeof(枪103001));//创建悬浮窗图片纹理
+ ID1030015 = CreateTexture(枪103001, sizeof(枪103001));//创建悬浮窗图片纹理
+ ID1030016 = CreateTexture(枪103001, sizeof(枪103001));//创建悬浮窗图片纹理
+ ID1030017 = CreateTexture(枪103001, sizeof(枪103001));//创建悬浮窗图片纹理
+ 
+ ID103002 = CreateTexture(枪103002, sizeof(枪103002));//创建悬浮窗图片纹理
+ ID1030021 = CreateTexture(枪103002, sizeof(枪103002));//创建悬浮窗图片纹理
+ ID1030022 = CreateTexture(枪103002, sizeof(枪103002));//创建悬浮窗图片纹理
+ ID1030023 = CreateTexture(枪103002, sizeof(枪103002));//创建悬浮窗图片纹理
+ ID1030024 = CreateTexture(枪103002, sizeof(枪103002));//创建悬浮窗图片纹理
+ ID1030025 = CreateTexture(枪103002, sizeof(枪103002));//创建悬浮窗图片纹理
+ ID1030026 = CreateTexture(枪103002, sizeof(枪103002));//创建悬浮窗图片纹理
+ ID1030027 = CreateTexture(枪103002, sizeof(枪103002));//创建悬浮窗图片纹理
+ 
+ ID103003 = CreateTexture(枪103003, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030031 = CreateTexture(枪103003, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030032 = CreateTexture(枪103003, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030033 = CreateTexture(枪103003, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030034 = CreateTexture(枪103003, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030035 = CreateTexture(枪103003, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030036 = CreateTexture(枪103003, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030037 = CreateTexture(枪103003, sizeof(枪103005));//创建悬浮窗图片纹理
+ 
+ ID103004 = CreateTexture(枪103004, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030041 = CreateTexture(枪103004, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030042 = CreateTexture(枪103004, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030043 = CreateTexture(枪103004, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030044 = CreateTexture(枪103004, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030045 = CreateTexture(枪103004, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030046 = CreateTexture(枪103004, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID1030047 = CreateTexture(枪103004, sizeof(枪103005));//创建悬浮窗图片纹理
+ 
+ ID103005 = CreateTexture(枪103005, sizeof(枪103005));//创建悬浮窗图片纹理
+ ID103006 = CreateTexture(枪103006, sizeof(枪103006));//创建悬浮窗图片纹理
+ ID1030061 = CreateTexture(枪103006, sizeof(枪103006));//创建悬浮窗图片纹理
+ ID1030062 = CreateTexture(枪103006, sizeof(枪103006));//创建悬浮窗图片纹理
+ ID1030063 = CreateTexture(枪103006, sizeof(枪103006));//创建悬浮窗图片纹理
+ ID1030064 = CreateTexture(枪103006, sizeof(枪103006));//创建悬浮窗图片纹理
+ ID1030065 = CreateTexture(枪103006, sizeof(枪103006));//创建悬浮窗图片纹理
+ ID1030066 = CreateTexture(枪103006, sizeof(枪103006));//创建悬浮窗图片纹理
+
+ID1030067 = CreateTexture(枪103006, sizeof(枪103006));//创建悬浮窗图片纹理
+ 
+ ID103007 = CreateTexture(枪103007, sizeof(枪103007));//创建悬浮窗图片纹理
+ ID1030071 = CreateTexture(枪103007, sizeof(枪103007));//创建悬浮窗图片纹理
+ ID1030072 = CreateTexture(枪103007, sizeof(枪103007));//创建悬浮窗图片纹理
+ ID1030073 = CreateTexture(枪103007, sizeof(枪103007));//创建悬浮窗图片纹理
+ ID1030074 = CreateTexture(枪103007, sizeof(枪103007));//创建悬浮窗图片纹理
+ ID1030075 = CreateTexture(枪103007, sizeof(枪103007));//创建悬浮窗图片纹理
+ ID1030076 = CreateTexture(枪103007, sizeof(枪103007));//创建悬浮窗图片纹理
+ ID1030077 = CreateTexture(枪103007, sizeof(枪103007));//创建悬浮窗图片纹理
+ 
+ ID103008 = CreateTexture(枪103008, sizeof(枪103008));//创建悬浮窗图片纹理
+ ID103009 = CreateTexture(枪103009, sizeof(枪103009));//创建悬浮窗图片纹理
+ ID1030091 = CreateTexture(枪103009, sizeof(枪103009));//创建悬浮窗图片纹理
+ ID1030092 = CreateTexture(枪103009, sizeof(枪103009));//创建悬浮窗图片纹理
+ ID1030093 = CreateTexture(枪103009, sizeof(枪103009));//创建悬浮窗图片纹理
+ ID1030094 = CreateTexture(枪103009, sizeof(枪103009));//创建悬浮窗图片纹理
+ ID1030095 = CreateTexture(枪103009, sizeof(枪103009));//创建悬浮窗图片纹理
+ ID1030096 = CreateTexture(枪103009, sizeof(枪103009));//创建悬浮窗图片纹理
+ ID1030097 = CreateTexture(枪103009, sizeof(枪103009));//创建悬浮窗图片纹理
+ 
+ ID103010 = CreateTexture(枪103010, sizeof(枪103010));//创建悬浮窗图片纹理
+ ID1030101 = CreateTexture(枪103010, sizeof(枪103010));//创建悬浮窗图片纹理
+ ID1030102 = CreateTexture(枪103010, sizeof(枪103010));//创建悬浮窗图片纹理
+ ID1030103 = CreateTexture(枪103010, sizeof(枪103010));//创建悬浮窗图片纹理
+ ID1030104 = CreateTexture(枪103010, sizeof(枪103010));//创建悬浮窗图片纹理
+ ID1030105 = CreateTexture(枪103010, sizeof(枪103010));//创建悬浮窗图片纹理
+ ID1030106 = CreateTexture(枪103010, sizeof(枪103010));//创建悬浮窗图片纹理
+ ID1030107 = CreateTexture(枪103010, sizeof(枪103010));//创建悬浮窗图片纹理
+ 
+ ID103011 = CreateTexture(枪103011, sizeof(枪103011));//创建悬浮窗图片纹理
+ ID1030111 = CreateTexture(枪103011, sizeof(枪103011));//创建悬浮窗图片纹理
+ ID1030112 = CreateTexture(枪103011, sizeof(枪103011));//创建悬浮窗图片纹理
+ ID1030113 = CreateTexture(枪103011, sizeof(枪103011));//创建悬浮窗图片纹理
+ ID1030114 = CreateTexture(枪103011, sizeof(枪103011));//创建悬浮窗图片纹理
+ ID1030115 = CreateTexture(枪103011, sizeof(枪103011));//创建悬浮窗图片纹理
+ ID1030116 = CreateTexture(枪103011, sizeof(枪103011));//创建悬浮窗图片纹理
+ ID1030117 = CreateTexture(枪103011, sizeof(枪103011));//创建悬浮窗图片纹理
+ 
+ ID103012 = CreateTexture(枪103012, sizeof(枪103012));//创建悬浮窗图片纹理
+ ID1030121 = CreateTexture(枪103012, sizeof(枪103012));//创建悬浮窗图片纹理
+ ID1030122 = CreateTexture(枪103012, sizeof(枪103012));//创建悬浮窗图片纹理
+ ID1030123 = CreateTexture(枪103012, sizeof(枪103012));//创建悬浮窗图片纹理
+ ID1030124 = CreateTexture(枪103012, sizeof(枪103012));//创建悬浮窗图片纹理
+ ID1030125 = CreateTexture(枪103012, sizeof(枪103012));//创建悬浮窗图片纹理
+ ID1030126 = CreateTexture(枪103012, sizeof(枪103012));//创建悬浮窗图片纹理
+ ID1030127 = CreateTexture(枪103012, sizeof(枪103012));//创建悬浮窗图片纹理
+ 
+ ID103013 = CreateTexture(枪103013, sizeof(枪103013));//创建悬浮窗图片纹理
+ ID103014 = CreateTexture(枪103014, sizeof(枪103014));//创建悬浮窗图片纹理
+ ID1030141 = CreateTexture(枪103014, sizeof(枪103014));//创建悬浮窗图片纹理
+ ID1030142 = CreateTexture(枪103014, sizeof(枪103014));//创建悬浮窗图片纹理
+ ID1030143 = CreateTexture(枪103014, sizeof(枪103014));//创建悬浮窗图片纹理
+ ID1030144 = CreateTexture(枪103014, sizeof(枪103014));//创建悬浮窗图片纹理
+ ID1030145 = CreateTexture(枪103014, sizeof(枪103014));//创建悬浮窗图片纹理
+ ID1030146 = CreateTexture(枪103014, sizeof(枪103014));//创建悬浮窗图片纹理
+ ID1030147 = CreateTexture(枪103014, sizeof(枪103014));//创建悬浮窗图片纹理
+ 
+ ID103015 = CreateTexture(枪103015, sizeof(枪103015));//创建悬浮窗图片纹理
+ 
+ ID103100 = CreateTexture(枪103100, sizeof(枪103100));//创建悬浮窗图片纹理
+ ID103901 = CreateTexture(枪103901, sizeof(枪103901));//创建悬浮窗图片纹理
+ ID103903 = CreateTexture(枪103903, sizeof(枪103903));//创建悬浮窗图片纹理
+ 
+ ID104001 = CreateTexture(枪104001, sizeof(枪104001));//创建悬浮窗图片纹理
+ ID104002 = CreateTexture(枪104002, sizeof(枪104002));//创建悬浮窗图片纹理
+ ID104003 = CreateTexture(枪104003, sizeof(枪104003));//创建悬浮窗图片纹理
+ ID1040031 = CreateTexture(枪104003, sizeof(枪104003));//创建悬浮窗图片纹理
+
+ID1040032 = CreateTexture(枪104003, sizeof(枪104003));//创建悬浮窗图片纹理
+ ID1040033 = CreateTexture(枪104003, sizeof(枪104003));//创建悬浮窗图片纹理
+ ID1040034 = CreateTexture(枪104003, sizeof(枪104003));//创建悬浮窗图片纹理
+ ID1040035 = CreateTexture(枪104003, sizeof(枪104003));//创建悬浮窗图片纹理
+ 
+ ID104004 = CreateTexture(枪104004, sizeof(枪104004));//创建悬浮窗图片纹理
+ ID1040041 = CreateTexture(枪104004, sizeof(枪104004));//创建悬浮窗图片纹理
+ ID1040042 = CreateTexture(枪104004, sizeof(枪104004));//创建悬浮窗图片纹理
+ ID1040043 = CreateTexture(枪104004, sizeof(枪104004));//创建悬浮窗图片纹理
+ ID1040044 = CreateTexture(枪104004, sizeof(枪104004));//创建悬浮窗图片纹理
+ ID1040045 = CreateTexture(枪104004, sizeof(枪104004));//创建悬浮窗图片纹理
+ 
+ ID104100 = CreateTexture(枪104100, sizeof(枪104100));//创建悬浮窗图片纹理
+ 
+ ID105001 = CreateTexture(枪105001, sizeof(枪105001));//创建悬浮窗图片纹理
+ ID1050011 = CreateTexture(枪105001, sizeof(枪105001));//创建悬浮窗图片纹理
+ ID1050012 = CreateTexture(枪105001, sizeof(枪105001));//创建悬浮窗图片纹理
+ ID1050013 = CreateTexture(枪105001, sizeof(枪105001));//创建悬浮窗图片纹理
+ ID1050014 = CreateTexture(枪105001, sizeof(枪105001));//创建悬浮窗图片纹理
+ ID1050015 = CreateTexture(枪105001, sizeof(枪105001));//创建悬浮窗图片纹理
+ ID1050016 = CreateTexture(枪105001, sizeof(枪105001));//创建悬浮窗图片纹理
+ ID1050017 = CreateTexture(枪105001, sizeof(枪105001));//创建悬浮窗图片纹理
+ 
+ ID105002 = CreateTexture(枪105002, sizeof(枪105002));//创建悬浮窗图片纹理
+ ID105010 = CreateTexture(枪105010, sizeof(枪105010));//创建悬浮窗图片纹理
+ ID1050101 = CreateTexture(枪105010, sizeof(枪105010));//创建悬浮窗图片纹理
+ ID1050102 = CreateTexture(枪105010, sizeof(枪105010));//创建悬浮窗图片纹理
+ ID1050103 = CreateTexture(枪105010, sizeof(枪105010));//创建悬浮窗图片纹理
+ ID1050104 = CreateTexture(枪105010, sizeof(枪105010));//创建悬浮窗图片纹理
+ ID1050105 = CreateTexture(枪105010, sizeof(枪105010));//创建悬浮窗图片纹理
+ ID1050106 = CreateTexture(枪105010, sizeof(枪105010));//创建悬浮窗图片纹理
+ ID1050107 = CreateTexture(枪105010, sizeof(枪105010));//创建悬浮窗图片纹理
+ 
+ ID106001 = CreateTexture(枪106001, sizeof(枪106001));//创建悬浮窗图片纹理
+ ID106002 = CreateTexture(枪106002, sizeof(枪106002));//创建悬浮窗图片纹理
+ ID106003 = CreateTexture(枪106003, sizeof(枪106003));//创建悬浮窗图片纹理
+ ID106004 = CreateTexture(枪106004, sizeof(枪106004));//创建悬浮窗图片纹理
+ ID106005 = CreateTexture(枪106005, sizeof(枪106005));//创建悬浮窗图片纹理
+ ID106006 = CreateTexture(枪106006, sizeof(枪106006));//创建悬浮窗图片纹理
+ ID106007 = CreateTexture(枪106007, sizeof(枪106007));//创建悬浮窗图片纹理
+ ID106008 = CreateTexture(枪106008, sizeof(枪106008));//创建悬浮窗图片纹理
+ ID106010 = CreateTexture(枪106010, sizeof(枪106010));//创建悬浮窗图片纹理
+ 
+ ID107001 = CreateTexture(枪107001, sizeof(枪107001));//创建悬浮窗图片纹理
+ ID107006 = CreateTexture(枪107006, sizeof(枪107006));//创建悬浮窗图片纹理
+
+    
+   
+ ID烟雾弹=CreateTexture(烟雾弹, sizeof(烟雾弹));//创建悬浮窗图片纹理
+ ID燃烧瓶=CreateTexture(燃烧瓶, sizeof(燃烧瓶));//创建悬浮窗图片纹理
+    ID手雷弹=CreateTexture(手雷弹, sizeof(手雷弹));//创建悬浮窗图片纹理
+    ID震撼弹=CreateTexture(震爆弹, sizeof(震爆弹));//创建悬浮窗图片纹理
+
+ ID拳头=CreateTexture(拳头, sizeof(拳头));//创建悬浮窗图片纹理
+}
