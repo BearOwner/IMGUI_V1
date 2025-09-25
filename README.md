@@ -89,6 +89,13 @@ IMGUI_T2 implements comprehensive security measures to protect against common vu
 - Use secure coding practices when extending the project with static analysis
 - Report vulnerabilities via GitHub Security Advisories within 7 days response time
 
+### CI/CD Security Integration
+- **Automated Security Scanning**: GitHub Actions workflow with Trivy vulnerability scanner
+- **SARIF Upload**: Security scan results automatically uploaded to GitHub Security tab
+- **CodeQL Analysis**: Automated code analysis for security vulnerabilities in C++ and Java
+- **Dependency Scanning**: Regular scanning of all dependencies for known vulnerabilities
+- **Build Verification**: Security tests run on every push and pull request
+
 ## Installation
 
 ### Prerequisites

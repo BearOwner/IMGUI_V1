@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ main, develop ]
 
+permissions:
+  contents: read
+  security-events: write
+
 env:
   # Security and performance configurations
   NDK_VERSION: '25.1.8937393'
