@@ -1,0 +1,47 @@
+name: "IMGUI_T2 CodeQL Configuration"
+
+disable-default-queries: false
+
+queries:
+  - uses: security-and-quality
+  - uses: security-experimental
+
+paths-ignore:
+  - "app/src/main/cpp/Data_Folder/ImGui/imgui_demo.cpp"
+  - "app/src/main/cpp/Data_Folder/ImGui/imgui_demo.h"
+  - "**/*.pb.h"
+  - "**/*.pb.cc"
+
+paths:
+  - "app/src/main/cpp"
+
+threads: 4
+
+ram: 4096
+
+timeout: 600000
+
+extractor:
+  cpp:
+    configure:
+      - "cmake --preset default"
+    build:
+      - "cmake --build build --config Release"
+
+  java:
+    configure:
+      - "./gradlew build"
+    build:
+      - "./gradlew build"
+
+# Custom query filters for IMGUI_T2
+query-filters:
+  - exclude:
+      id: "cpp/use-of-dangerous-function"
+      reason: "IMGUI library requires certain C functions for performance"
+  - exclude:
+      id: "cpp/missing-header-guard"
+      reason: "Third-party libraries may not follow header guard conventions"
+  - exclude:
+      id: "java/missing-javadoc"
+      reason: "JNI interfaces may not require full JavaDoc documentation"
