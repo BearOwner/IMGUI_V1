@@ -45,6 +45,7 @@ LOCAL_SRC_FILES 		:=  main.cpp \
      Data_Folder/Substrate/SubstratePosixMemory.cpp \
      Data_Folder/Substrate/And64InlineHook.cpp \
      Data_Folder/base64/base64.cpp\
+     Data_Folder/Helper/tools.cpp \
  	Data_Folder/Time/Time.cpp \
          Data_Folder/Helper/Tools.cpp \
          Data_Folder/Helper/ElfImg.cpp \
