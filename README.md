@@ -136,3 +136,9 @@ main.cpp (Init)
 This project is licensed under the MIT License. See LICENSE for details.
 
 Attribution: Developed by BearOwner (bearowner@example.com). Contributions welcome!
+
+## Recent Updates
+
+- **Branch Rename**: Renamed default branch from `master` to `main` for modern Git conventions.
+- **Documentation**: Added comprehensive README with troubleshooting guides and problem models.
+- **Performance Fixes**: Ongoing analysis of overheating and crashes in core files (SKIN.h, ESP.h, etc.).
