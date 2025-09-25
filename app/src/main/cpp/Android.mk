@@ -52,14 +52,14 @@ LOCAL_SRC_FILES 		:=  main.cpp \
         Data_Folder/Helper/plthook_elf.cpp  \
         Data_Folder/Helper/ImguiPP.cpp  \
         Data_Folder/Helper/android_native_app_glue.c \
-        Data_Folder/imgui/imgui.cpp    \
-        Data_Folder/imgui/imgui_draw.cpp\
-        Data_Folder/imgui/imgui_demo.cpp \
-        Data_Folder/imgui/imgui_tables.cpp \
-        Data_Folder/imgui/imgui_widgets.cpp \
-        Data_Folder/imgui/imgui_impl_android.cpp \
-        Data_Folder/imgui/imgui_impl_opengl3.cpp \
-        Data_Folder/imgui/stb_image.cpp \
+        Data_Folder/ImGui/imgui.cpp    \
+        Data_Folder/ImGui/imgui_draw.cpp\
+        Data_Folder/ImGui/imgui_demo.cpp \
+        Data_Folder/ImGui/imgui_tables.cpp \
+        Data_Folder/ImGui/imgui_widgets.cpp \
+        Data_Folder/ImGui/imgui_impl_android.cpp \
+        Data_Folder/ImGui/imgui_impl_opengl3.cpp \
+        Data_Folder/ImGui/stb_image.cpp \
         nrg_hook/xhook.c \
         nrg_hook/xh_core.c \
         nrg_hook/xh_elf.c \
