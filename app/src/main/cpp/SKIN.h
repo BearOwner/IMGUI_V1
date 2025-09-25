@@ -2660,7 +2660,7 @@ if (Config.SkinEnable){
 
                   NewEntry.IntData = NewSkinID;
 
-                  AdditionalData.Emplace(NewEntry);
+                  // AdditionalData.Emplace(NewEntry); // Disabled due to TArray limitations
 
                   NeedRefreshBack = true;
 

@@ -35,19 +35,19 @@ LOCAL_ARM_MODE := arm
 LOCAL_C_INCLUDES += $(MAIN_LOCAL_PATH)
 
 LOCAL_SRC_FILES 		:=  main.cpp \
-	Data_Folder/patch/KittyMemory.cpp \
-	Data_Folder/patch/MemoryPatch.cpp \
-    Data_Folder/patch/MemoryBackup.cpp \
-    Data_Folder/patch/KittyUtils.cpp \
-    Data_Folder/Substrate/hde64.c \
-    Data_Folder/Substrate/SubstrateDebug.cpp \
-    Data_Folder/Substrate/SubstrateHook.cpp \
-    Data_Folder/Substrate/SubstratePosixMemory.cpp \
-    Data_Folder/Substrate/And64InlineHook.cpp \
-    Data_Folder/base64/base64.cpp\
-	Data_Folder/Time/Time.cpp \
-        Data_Folder/Helper/tools.cpp \
-        Data_Folder/Helper/ElfImg.cpp \
+ 	Data_Folder/patch/KittyMemory.cpp \
+ 	Data_Folder/patch/MemoryPatch.cpp \
+     Data_Folder/patch/MemoryBackup.cpp \
+     Data_Folder/patch/KittyUtils.cpp \
+     Data_Folder/Substrate/hde64.c \
+     Data_Folder/Substrate/SubstrateDebug.cpp \
+     Data_Folder/Substrate/SubstrateHook.cpp \
+     Data_Folder/Substrate/SubstratePosixMemory.cpp \
+     Data_Folder/Substrate/And64InlineHook.cpp \
+     Data_Folder/base64/base64.cpp\
+ 	Data_Folder/Time/Time.cpp \
+         Data_Folder/Helper/Tools.cpp \
+         Data_Folder/Helper/ElfImg.cpp \
         Data_Folder/Helper/fake_dlfcn.cpp \
         Data_Folder/Helper/plthook_elf.cpp  \
         Data_Folder/Helper/ImguiPP.cpp  \
