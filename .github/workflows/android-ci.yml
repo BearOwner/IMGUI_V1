@@ -44,6 +44,24 @@ jobs:
         with:
           languages: cpp, java
 
+      - name: Build C/C++ code for CodeQL
+        run: |
+          echo "Building C/C++ code for CodeQL analysis..."
+          mkdir -p build
+          cd build
+
+          # Configure CMake for CodeQL analysis
+          cmake .. \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_C_COMPILER=gcc \
+            -DCMAKE_CXX_COMPILER=g++ \
+            -G "Unix Makefiles"
+
+          # Build the project to generate object files for CodeQL
+          cmake --build . --config Release --parallel $(nproc)
+
+          echo "Build completed successfully for CodeQL analysis"
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
 

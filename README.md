@@ -92,9 +92,10 @@ IMGUI_T2 implements comprehensive security measures to protect against common vu
 ### CI/CD Security Integration
 - **Automated Security Scanning**: GitHub Actions workflow with Trivy vulnerability scanner
 - **SARIF Upload**: Security scan results automatically uploaded to GitHub Security tab
-- **CodeQL Analysis**: Automated code analysis for security vulnerabilities in C++ and Java
+- **CodeQL Analysis**: Automated code analysis for security vulnerabilities in C++ and Java with proper build integration
+- **CMake Build System**: Comprehensive CMakeLists.txt for cross-platform builds and CI/CD integration
 - **Dependency Scanning**: Regular scanning of all dependencies for known vulnerabilities
-- **Build Verification**: Security tests run on every push and pull request
+- **Build Verification**: Security tests run on every push and pull request with proper C/C++ compilation
 
 ## Installation
 
@@ -130,12 +131,19 @@ IMGUI_T2 implements comprehensive security measures to protect against common vu
     make
     ```
 
-4. **Android Build**:
+4. **CMake Build** (Cross-platform):
+    ```bash
+    mkdir build && cd build
+    cmake .. -DCMAKE_BUILD_TYPE=Release
+    make -j$(nproc)
+    ```
+
+5. **Android Build**:
     - Use Android Studio to open the project.
     - Build APK via Gradle: `./gradlew assembleDebug`.
     - Ensure NDK version is r25+ in `build.gradle`.
 
-5. **Security Verification**:
+6. **Security Verification**:
     - Verify SSL certificates are properly configured.
     - Test authentication system with valid credentials.
     - Monitor memory usage during build process.
