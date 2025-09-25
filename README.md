@@ -94,6 +94,7 @@ IMGUI_T2 implements comprehensive security measures to protect against common vu
 - **SARIF Upload**: Security scan results automatically uploaded to GitHub Security tab
 - **CodeQL Analysis**: Automated code analysis for security vulnerabilities in C++ and Java with proper build integration
 - **CMake Build System**: Comprehensive CMakeLists.txt for cross-platform builds and CI/CD integration
+- **Dependabot Integration**: Automated dependency updates for GitHub Actions, npm, Gradle, and Docker
 - **Dependency Scanning**: Regular scanning of all dependencies for known vulnerabilities
 - **Build Verification**: Security tests run on every push and pull request with proper C/C++ compilation
 
